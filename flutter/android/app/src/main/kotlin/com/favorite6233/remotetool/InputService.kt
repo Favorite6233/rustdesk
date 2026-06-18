@@ -1,4 +1,4 @@
-package com.carriez.flutter_hbb
+package com.favorite6233.remotetool
 
 /**
  * Handle remote input and dispatch android gesture
