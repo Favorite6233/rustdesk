@@ -254,9 +254,10 @@ class ServiceNotRunningNotification extends StatelessWidget {
             ElevatedButton.icon(
                 icon: const Icon(Icons.play_arrow),
                 onPressed: () {
-                  if (gFFI.userModel.userName.value.isEmpty &&
-                      bind.mainGetLocalOption(key: "show-scam-warning") !=
-                          "N") {
+//                  if (gFFI.userModel.userName.value.isEmpty &&
+//                      bind.mainGetLocalOption(key: "show-scam-warning") !=
+//                          "N") {
+                  if (false) {
                     showScamWarning(context, serverModel);
                   } else {
                     serverModel.toggleService();
@@ -278,7 +279,7 @@ class ScamWarningDialog extends StatefulWidget {
 }
 
 class ScamWarningDialogState extends State<ScamWarningDialog> {
-  int _countdown = bind.isCustomClient() ? 0 : 12;
+  int _countdown = bind.isCustomClient() ? 0 : 12;	// Это время задержки на кнопке при показе Scam уведомления.
   bool show_warning = false;
   late Timer _timer;
   late ServerModel _serverModel;
@@ -610,9 +611,10 @@ class _PermissionCheckerState extends State<PermissionChecker> {
             PermissionRow(
                 translate("Screen Capture"),
                 serverModel.mediaOk,
-                !serverModel.mediaOk &&
-                        gFFI.userModel.userName.value.isEmpty &&
-                        bind.mainGetLocalOption(key: "show-scam-warning") != "N"
+//                !serverModel.mediaOk &&
+//                        gFFI.userModel.userName.value.isEmpty &&
+//                        bind.mainGetLocalOption(key: "show-scam-warning") != "N"
+                false
                     ? () => showScamWarning(context, serverModel)
                     : serverModel.toggleService),
           PermissionRow(
