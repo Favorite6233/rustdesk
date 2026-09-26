@@ -413,11 +413,12 @@ jobs:
           version: ${{ env.LLVM_VERSION }}
 
       - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@e97e2d8cc328f1b50210efc529dca0028893a2d9 # v1
-        with:
-          toolchain: nightly-2023-10-13-${{ matrix.job.target }} # must use nightly here, because of abi_thiscall feature required
-          targets: ${{ matrix.job.target }}
-          components: "rustfmt"
+        shell: bash
+        run: |
+          # dtolnay/rust-toolchain can't pass --force-non-host, which newer rustup
+          # requires to install a 32-bit host toolchain on a 64-bit Windows runner.
+          rustup toolchain install nightly-2023-10-13-${{ matrix.job.target }} --target ${{ matrix.job.target }} --component rustfmt --profile minimal --force-non-host --no-self-update
+          rustup default nightly-2023-10-13-${{ matrix.job.target }}
 
       - uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
         with:
