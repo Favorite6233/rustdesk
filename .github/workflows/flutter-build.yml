@@ -418,7 +418,9 @@ jobs:
           # dtolnay/rust-toolchain can't pass --force-non-host, which newer rustup
           # requires to install a 32-bit host toolchain on a 64-bit Windows runner.
           rustup toolchain install nightly-2023-10-13-${{ matrix.job.target }} --target ${{ matrix.job.target }} --component rustfmt --profile minimal --force-non-host --no-self-update
-          rustup default nightly-2023-10-13-${{ matrix.job.target }}
+          # rustup default also refuses non-host toolchains and has no --force-non-host,
+          # so select the toolchain for later steps via env instead.
+          echo "RUSTUP_TOOLCHAIN=nightly-2023-10-13-${{ matrix.job.target }}" >> "$GITHUB_ENV"
 
       - uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
         with:
